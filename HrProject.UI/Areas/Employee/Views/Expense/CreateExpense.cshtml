@@ -1,0 +1,55 @@
+﻿@model Expense
+
+@{
+    ViewData["Title"] = "Harcama Olustur";
+    Layout = "~/Areas/Employee/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Harcama Ekle</h4>
+            <p class="card-description">
+                Harcama Ekleme Formu
+            </p>
+            @*TYPE SEC*@
+            <form asp-controller="Expense" asp-action="CreateExpense" method="post" class="forms-sample">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.Amount">Harcama Tutarı</label>
+                    <input asp-for="@Model.Amount" type="text" class="form-control" id="exampleInputName1" placeholder="Harcama Tutarı">
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.RequestDate">Talep Edilen Tarih</label>
+                    <input asp-for="@Model.RequestDate" type="date" class="form-control" id="exampleInputEmail3" placeholder="Talep Edilen Tarih">
+                </div>
+                @if (Model != null)
+                {
+                    <div id="FileLoad" class="form-group">
+                        <label>Fotoğraf Yükle</label>
+                        <input type="file" name="img[]" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                            <input asp-for="@Model.ExpenseImage" type="text" class="form-control file-upload-info" disabled placeholder="Fotoğraf Yükleyiniz">
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-primary" type="button">Yükle</button>
+                            </span>
+                        </div>
+                    </div>
+                    <script>
+                       @* $(document).ready(function () {
+                            $('#TypeSelect').change(function () {
+                                var selectedValue = $(this).val();
+
+                                $.ajax({
+                                    url: ''
+                                })
+                            })
+
+                        });*@
+                    </script>
+                }
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>

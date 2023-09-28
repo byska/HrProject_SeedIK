@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CompanyDTO>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using X.PagedList.Web.Common;
+
+@{
+    ViewData["Title"] = "CompanyList";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Şirketler</h4>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Logosu</th>
+                            <th>Şirket Adı</th>
+                            <th>Ünvanı</th>
+                            <th>Telefon</th>
+                            <th>Email</th>
+                            <th>Adres</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.LogoImage</td>
+                                <td>@item.CompanyName</td>
+                                <td>@item.Unvan</td>
+                                <td>@item.TelefonNo</td>
+                                <td>@item.Email</td>
+                                <td>@item.Adres</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("CompanyList",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions()
+            {
+            ContainerDivClasses = new List<string> {"d-flex justify-content-start mb-4"},
+            UlElementClasses = new List<string> {"pagination"},
+            LiElementClasses = new List<string> {"btn btn-primary mx-1 text-uppercase"},
+            ActiveLiElementClass =  "active",
+            })
+<script>
+    $(document).ready(function () {
+        $('ul.pagination > li.disabled > a').addClass('page-link');
+    });
+</script>

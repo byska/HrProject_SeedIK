@@ -1,0 +1,98 @@
+﻿@model IEnumerable<ExpenseModel>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using X.PagedList.Web.Common;
+
+@{
+    ViewData["Title"] = "CompanyList";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+@{
+    var currencyTypes = TempData["statusTypes"] as IList<Status>;
+}
+
+
+<div class="grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Harcama Talepleri</h4>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Talep Eden Kişi</th>
+                            <th>Harcama Miktarı</th>
+                            <th>Talep Tarihi</th>
+                            <th>Harcama Türü</th>
+                            <th>Talep Durumu</th>
+                            <th>Harcama Fotoğrafı</th>
+                            <th>Onay Türü</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.EmployeeName</td>
+                                <td>@item.Amount @item.Currency</td>
+                                <td>@item.RequestDate</td>
+                                <td>@item.Type</td>
+                                <td>@item.Status</td>
+                                <td>@item.ExpenseImage</td>
+                                <td><a data-id="statusButtonConfirm" asp-route-Id="@item.Id">Confirm</a> <a data-id="statusButtonDenied" asp-route-Id="@item.Id">Denied</a></td>
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("ExpenseList",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions()
+            {
+            ContainerDivClasses = new List<string> {"d-flex justify-content-start mb-4"},
+            UlElementClasses = new List<string> {"pagination"},
+            LiElementClasses = new List<string> {"btn btn-primary mx-1 text-uppercase"},
+            ActiveLiElementClass =  "active",
+            })
+<script>
+    $(document).ready(function () {
+        $('ul.pagination > li.disabled > a').addClass('page-link');
+    });  
+    
+</script>
+<script>
+    $(document).ready(function () {
+        $('.statusButtonConfirm').click(function () {
+            var itemId = $(this).data('id');
+            updateStatus(itemId, 'Confirm');
+        });
+
+        $('.statusButtonDenied').click(function () {
+            var itemId = $(this).data('id');
+            updateStatus(itemId, 'Denied');
+        });
+
+        function updateStatus(itemId, newStatus) {
+            $.ajax({
+                url: 'https://hrprojectapi20230602002601.azurewebsites.net/api/Expense/ChangeStatus/itemId',  // Sunucu tarafındaki doğru URL'yi buraya girin
+                type: 'POST',
+                data: { itemId: itemId, newStatus: newStatus },
+                success: function (response) {
+                    console.log('Durum güncellendi.');
+                    // İsteğin başarıyla tamamlandığı durumda yapılacak işlemler
+                    // Örneğin, durumu güncellemek için tabloyu yeniden yükleyebilirsiniz
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.error('Durum güncellenirken bir hata oluştu.');
+                }
+            });
+        }
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

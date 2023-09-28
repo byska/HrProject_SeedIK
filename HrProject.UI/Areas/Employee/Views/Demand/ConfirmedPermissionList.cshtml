@@ -1,0 +1,66 @@
+﻿@model IPagedList<PermissionModel>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using X.PagedList.Web.Common;
+
+@{
+    ViewBag.Title = "Onaylanan İzin Talepleri";
+    Layout = "~/Areas/Employee/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <a asp-action="PermissionList" class="btn btn-primary">Hepsi</a>
+    <a asp-action="ConfirmedPermissionList" class="btn btn-primary">Onaylanan</a>
+
+    <a asp-action="PendingPermissionList" class="btn btn-info">Cevap Bekleyen</a>
+
+    <a asp-action="DeniedPermissionList" class="btn btn-danger">Reddedilen</a>
+</div>
+
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Onaylanan İzin Talepleri</h4>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>İzin Türü</th>
+                            <th>Başvuru Tarihi</th>
+                            <th>Başlangıç Tarihi</th>
+                            <th>Bitiş Tarihi</th>
+                            <th>Gün Sayısı</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.TypeID</td>
+                                <td>@item.RequestDate</td>
+                                <td>@item.StartDate</td>
+                                <td>@item.EndDate</td>                            
+                                <td>@item.NumberOfDays</td>
+                                <td>@item.Status</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("ConfirmedPermissionList",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions()
+            {
+            ContainerDivClasses = new List<string> {"d-flex justify-content-start mb-4"},
+            UlElementClasses = new List<string> {"pagination"},
+            LiElementClasses = new List<string> {"btn btn-primary mx-1 text-uppercase"},
+            ActiveLiElementClass =  "active",
+            })
+<script>
+    $(document).ready(function () {
+        $('ul.pagination > li.disabled > a').addClass('page-link');
+    });
+</script>

@@ -1,0 +1,62 @@
+﻿
+@model ManagerModel
+@{
+    ViewData["Title"] = "ManagerDetail";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+@{
+    var names = TempData["myObject"] as Job_Department_Company_NameModel;
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/css/employeedetailscss/detailscss.css" rel="stylesheet" />
+<div class="container bootstrap snippets bootdey">
+    <div class="row">
+        <!-- BEGIN USER PROFILE -->
+        <div class="col-md-12">
+            <div class="grid profile">
+                <div class="grid-header">
+                    <div class="col-xs-2">
+                        <img src="@Model.EmployeeImage"
+                             alt="Generic placeholder image" class="img-fluid"
+                             style="width: 180px; border-radius: 10px;">
+                    </div>
+                    <div class="col-xs-7">
+                        <h3>@Model.FirstName @Model.LastName</h3>
+                        <p></p>
+                        <p>@names.departmentName, @names.jobName </p>
+                        <p>@Model.BirthPlace</p>
+                    </div>
+                </div>
+                <div class="grid-body">
+
+                    <div class="tab-content">
+                        <!-- BEGIN PROFILE -->
+                        <div class="tab-pane active" id="profile">
+                            <p class="lead">My Profile</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Email: </strong>@Model.Email</p>
+                                    <p><strong>Joined on: </strong> @Model.StartDate</p>
+                                    <p><strong>TC: </strong> @Model.TC</p>
+                                    <p><strong>Aktiflik: </strong>Aktif</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Address: </strong>@Model.BirthPlace</p>
+                                    <p><strong>Doğum Günü: </strong>@Model.BirthDate</p>
+                                    <p><strong>Şirket İsmi: </strong>@names.companyName</p>
+                                    <p><strong>Phone: </strong>@Model.PhoneNumber</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END PROFILE -->
+                        <!-- BEGIN TIMELINE -->
+                        <!-- END SETTINGS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END USER PROFILE -->
+    </div>
+</div>

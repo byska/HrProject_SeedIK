@@ -1,0 +1,34 @@
+ [ "Kullanıcı adı boş olamaz!"]
+  //Kullanıcı adı en az 3 en fazla 10 karakter uzunluğunda olsun
+     
+ ["T.C kimlik numarası adı boş olamaz!]
+
+ [IdentificationNumberValidation(ErrorMessage = "Geçersiz T.C. Numarası")]//kENDİN OLUŞTURACAKSIN
+     
+["Puan boş olamaz!")]
+["Puanınız [0,100] arasında olmalıdır!"]
+      
+[ "Mail adresi boş olamaz!"]
+[MailValidation(ErrorMessage = "E posta adresi @bilgeadam.com ile sonlanmalıdır ve boşluk içermemelidir!")]//KENDİN OLUŞTURACAKSIN
+       
+ ["Şifre boş olamaz!"]
+["Şifre en az 8 en fazla 20 karakter olmalıdır!"]
+       
+
+//Öyle bir attribute yazalım ki migration ve update database den sonra bu prop. sütün olarak eklenmesin...
+[ "Şifre tekrarı boş olamaz!")]
+["Parola ve tekrarı aynı olmalıdır!")]
+
+TC Kimlik No Doğrulama 
+Bu 5 şartın hepsine de uyulması gerekiyor.
+
+1 – TC Kimlik Numaraları 11 karakter olmak zorundadır.
+
+2 – Her hanesi bir rakam olmaldır.
+
+3 – İlk hanesi 0 (sıfır) olamaz
+
+4 – 1, 3, 5, 7, 9 basamaklarının toplamının 7 katından, 2, 4, 6, 8 basamaklarının toplamını çıkarttığımızda elde ettiğimiz sonucun 10’a bölümünden kalan sayı (MOD10)  10. basamaktaki sayıyı vermelidir.
+
+5 – İlk 10 hanenin toplamından elde edilen sonucun 10’a bölümünden kalan sayı (MOD10) 11. basamaktaki sayıyı vermelidir.
+

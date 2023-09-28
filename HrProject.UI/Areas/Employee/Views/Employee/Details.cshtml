@@ -1,0 +1,212 @@
+﻿@model EmployeeListModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Employee/Views/Shared/_Layout.cshtml";
+}
+@{
+    var names = TempData["myObject"] as Job_Department_Company_NameModel;
+}
+
+@*<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); color: #2c3e50;">Personel Bilgileri</h4>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Personel Fotoğrafı:</td>
+                            <td><img src="@Model.EmployeeImage" alt="Employee Photo" /></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>Adı:</td>
+                            <td>@(Model.FirstName + " " + Model.SecondFirstName)</td>
+                            <td>Şirket:</td>
+                            <td>@if (names.companyName == null)
+                                {
+                                    <p class="text-danger">Bulunamadı!</p>
+                                }@names.companyName</td>
+                        </tr>
+                        <tr>
+                            <td>Soyadı:</td>
+                            <td>@(Model.LastName + " " + Model.SecondLastName)</td>
+                            <td>Departman:</td>
+                            <td>
+                                @if (names.departmentName == null)
+                                {
+                                    <p class="text-danger">Bulunamadı!</p>
+                                }@names.departmentName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Doğum Tarihi:</td>
+                            <td>@Model.BirthDate.ToString("dd/MM/yyyy")</td>
+                            <td>Meslek:</td>
+                            <td>
+                                @if (names.jobName == null)
+                                {
+                                    <p class="text-danger">Bulunamadı!</p>
+                                }@names.jobName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Doğum Yeri:</td>
+                            <td>@Model.BirthPlace</td>
+                            <td>E-posta:</td>
+                            <td>@Model.Email</td>
+                        </tr>
+                        <tr>
+                            <td>TC:</td>
+                            <td>@Model.TC</td>
+                            <td>Adres:</td>
+                            <td>@Model.Address</td>
+                        </tr>
+                        <tr>
+                            <td>İşe Başlama Tarihi:</td>
+                            <td>@Model.StartDate.ToString("dd/MM/yyyy")</td>
+                            <td>İşten Çıkış Tarihi:</td>
+                            <td>@(Model.DismissalDate.HasValue ? Model.DismissalDate.Value.ToString("dd/MM/yyyy") : "Hala Çalışıyor..")</td>
+                        </tr>
+                        <tr>
+                            <td>Telefon:</td>
+                            <td>@Model.PhoneNumber</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+@*<div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Personel Bilgileri</h4>
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr>
+                            @*<th>User</th>
+                          <th>Product</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Personel Fotoğrafı:</td>
+                          <td><img src="@Model.EmployeeImage" alt="Employee Photo" /></td>
+                        </tr>
+                        <tr>
+                          <td>Adı:</td>
+                          <td>@(Model.FirstName + " " + Model.SecondFirstName)</td>
+                        </tr>
+                        <tr>
+                          <td>Soyadı:</td>
+                          <td>@(Model.LastName + " " + Model.SecondLastName)</td>
+                        </tr>
+                        <tr>
+                          <td>Doğum Tarihi:</td>
+                          <td>@Model.BirthDate.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                        <tr>
+                          <td>Doğum Yeri:</td>
+                          <td>@Model.BirthPlace</td>
+                        </tr>
+                        <tr>
+                          <td>TC:</td>
+                          <td>@Model.TC</td>
+                        </tr>
+                        <tr>
+                          <td>İşe Başlama Tarihi:</td>
+                          <td>@Model.StartDate.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                        <tr>
+                          <td>İşten Çıkış Tarihi:</td>
+                          <td>@(Model.DismissalDate.HasValue ? Model.DismissalDate.Value.ToString("dd/MM/yyyy") : "Hala Çalışıyor..")</td>
+                        </tr>
+                        <tr>
+                          <td>Şirket:</td>
+                          <td>@Model.Company.CompanyName</td>
+                        </tr>
+                        <tr>
+                          <td>Departman:</td>
+                          <td>@Model.Department.DepartmentName</td>
+                        </tr>
+                        <tr>
+                          <td>Meslek:</td>
+                          @*<td>@Model.Job.JobName</td>
+                        </tr>
+                        <tr>
+                          <td>E-posta:</td>
+                          <td>@Model.Email</td>
+                        </tr>
+                        <tr>
+                          <td>Adres:</td>
+                          <td>@Model.Address</td>
+                        </tr>
+                        <tr>
+                          <td>Telefon:</td>
+                          <td>@Model.Phone</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>*@
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/css/employeedetailscss/detailscss.css" rel="stylesheet" />
+<div class="container bootstrap snippets bootdey">
+    <div class="row">
+        <!-- BEGIN USER PROFILE -->
+        <div class="col-md-12">
+            <div class="grid profile">
+                <div class="grid-header">
+                    <div class="col-xs-2">
+                        <img src="@Model.EmployeeImage"
+                             alt="Generic placeholder image" class="img-fluid"
+                             style="width: 180px; border-radius: 10px;">
+                    </div>
+                    <div class="col-xs-7">
+                        <h3>@Model.FirstName @Model.LastName</h3>
+                        <p></p>
+                        <p>@names.departmentName, @names.jobName </p>
+                        <p>@Model.BirthPlace</p>
+                    </div>
+                </div>
+                <div class="grid-body">
+                    
+                    <div class="tab-content">
+                        <!-- BEGIN PROFILE -->
+                        <div class="tab-pane active" id="profile">
+                            <p class="lead">My Profile</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Email: </strong>@Model.Email</p>
+                                    <p><strong>Joined on: </strong> @Model.StartDate</p>
+                                    <p><strong>TC: </strong> @Model.TC</p>
+                                    <p><strong>Aktiflik: </strong>Aktif</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Address: </strong>@Model.BirthPlace</p>
+                                    <p><strong>Doğum Günü: </strong>@Model.BirthDate</p>
+                                    <p><strong>Şirket İsmi: </strong>@names.companyName</p>
+                                    <p><strong>Phone: </strong>@Model.PhoneNumber</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END PROFILE -->
+                        <!-- BEGIN TIMELINE -->
+                        <!-- END SETTINGS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END USER PROFILE -->
+    </div>
+</div>

@@ -1,0 +1,80 @@
+﻿@model PermissionVM
+@{
+    ViewData["Title"] = "Talep Ekle";
+    Layout = "~/Areas/Employee/Views/Shared/_Layout.cshtml";
+}
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">İzin EKle</h4>
+            <p class="card-description">
+                İzin Ekleme Formu
+            </p>
+            <form asp-controller="Demand" asp-action="CreatePermission" enctype="multipart/form-data" method="post" class="forms-sample">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="PermissionTypeDropDown">İzin Tipi</label>
+                    <select  id="TypeSelect" asp-for=@Model.Permission.TypeID class="form-control">
+                        @foreach (var item in Model.PermissionTypeDropDown)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Permission.StartDate" >Başlangıç Tarihi</label>
+                    <input asp-for="Permission.StartDate" type="date" min="@ViewBag.DateTime" class="form-control" id="startDate" placeholder="Başlangıç Tarihi">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Permission.EndDate">Bitiş Tarihi</label>
+                    <input asp-for="Permission.EndDate" type="date" min="@ViewBag.DateTime" class="form-control" id="endDate" placeholder="Bitiş Tarihi">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Permission.NumberOfDays">Gün Sayısı</label>
+                    <input asp-for="Permission.NumberOfDays" type="text" class="form-control" id="exampleInputPassword4" disabled readonly>
+                </div>
+                 @if (Model.Permission != null)
+                {
+                    <div class="custom-file">
+                        <input asp-for="Permission.SelectFile" type="file" class="custom-file-input fileUpload" />
+                        <label  class="custom-file-label fileLabel">Belge Seçiniz</label>                
+                    </div>
+                     @*<div id="FileLoad" class="form-group">
+                        <label>Belge Yükle</label>
+                        <input asp-for="Permission.SelectFile" type="file" class="custom-file-input fileUpload">
+                        <div class="input-group col-xs-12">
+                            <input asp-for="Permission.SelectFile.Name" type="text" class="form-control file-upload-info" disabled placeholder="Belge Yükleyiniz">
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-primary" type="button">Yükle</button>
+                            </span>
+                        </div>
+                    </div>*@
+                    <script>
+                        $(document).ready(function () {
+                            $('#TypeSelect').change(function () {
+                                var selectedValue = $(this).val();
+
+                                $.ajax({
+                                    url: ''
+                                })
+                            })
+
+                        });
+
+                    </script>
+                }
+               <br/>
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var startDateInput = document.getElementById("startDate");
+    var endDateInput = document.getElementById("endDate");
+
+    startDateInput.addEventListener("change", function () {
+        endDateInput.min = startDateInput.value;
+    });
+</script>
+           

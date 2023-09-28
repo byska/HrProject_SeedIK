@@ -1,0 +1,98 @@
+﻿@model CreateCompanyModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    string regexPattern = "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$";
+}
+<style>
+    .error {
+        border: 1px solid red;
+    }
+</style>
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Avans Talebi Oluşturun</h4>
+            <p class="card-description">
+            </p>
+            <form class="forms-sample" enctype="multipart/form-data" asp-controller="Admin" asp-action="CreateCompany" method="post">
+                <div class="form-group">
+                    <label asp-for="CompanyName">Şirket İsmi</label>
+                    <input asp-for="CompanyName" type="text" placeholder="Şirket ismini giriniz." class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Unvan">Ünvan</label>
+                    <input asp-for="Unvan" type="text" placeholder="Şirket ünvanını giriniz." class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="MersisNo">Mersis No</label>
+                    <input asp-for="MersisNo" placeholder="16 haneli mersis numarasını giriniz." type="text" maxlength="16" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="VergiNo">Vergi No</label>
+                    <input asp-for="VergiNo" placeholder="10 haneli vergi numarasını giriniz." type="text" maxlength="10" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="TelefonNo">Şirket Telefon No</label>
+                    <input asp-for="TelefonNo" placeholder="888-888-8888" class="form-control" type="text" id="phone-input" oninput="formatPhoneNumber()">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Adres">Adres</label>
+                    <textarea asp-for="Adres" type="text" class="form-control" placeholder="Adres Giriniz..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" type="email" id="email-input" oninput="validateEmail()" placeholder="Şirket maili giriniz." class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="KurulusTarihi">Kuruluş Tarihi</label>
+                    <input asp-for="KurulusTarihi" type="date" value="@DateTime.Now" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="SozlesmeBaslangicTarihi">Sözleşme Başlangıç Tarihi</label>
+                    <input asp-for="SozlesmeBaslangicTarihi" type="date" value="@DateTime.Now" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="SozlesmeBitisTarihi">Sözleşme Bitiş Tarihi</label>
+                    <input asp-for="SozlesmeBitisTarihi" type="date" value="@DateTime.Now" class="form-control">
+                </div>
+                <div class="form-group">
+                    <div class="custom-file">
+                        <input asp-for="LogoImage" type="file" class="custom-file-input fileUpload" />
+                        <label class="custom-file-label fileLabel">Logo Yükleyiniz.</label>
+                    </div>
+                </div>
+                <button type="submit" value="Submit" class="btn btn-primary mr-2">Şirket Oluştur</button>
+                @*<button class="btn btn-light">Cancel</button>*@
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function formatPhoneNumber() {
+        let phoneNumber = document.getElementById('phone-input').value;
+        phoneNumber = phoneNumber.replace(/\D/g, ''); // Sadece sayıları al
+        phoneNumber = phoneNumber.slice(0, 10); // İlk 10 karakteri al
+
+        if (phoneNumber.length > 3 && phoneNumber.length <= 6) {
+            phoneNumber = phoneNumber.replace(/(\d{3})(\d{1,3})/, '$1-$2');
+        } else if (phoneNumber.length > 6) {
+            phoneNumber = phoneNumber.replace(/(\d{3})(\d{3})(\d{1,4})/, '$1-$2-$3');
+        }
+
+        document.getElementById('phone-input').value = phoneNumber;
+    }
+</script>
+ <script>
+    function validateEmail() {
+      let emailInput = document.getElementById('email-input');
+      let email = emailInput.value;
+
+        if (RegExp(@regexPattern).test(email)) {
+        emailInput.classList.remove('error');
+      } else {
+        emailInput.classList.add('error');
+      }
+    }
+  </script>

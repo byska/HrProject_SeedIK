@@ -1,0 +1,70 @@
+﻿@model UserSignInModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--=============== REMIXICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="~/asset/css/styles.css">
+
+        <title>Animated login form - Bedimcode</title>
+    </head>
+    <body>
+        <div class="login">
+        <img src="~/asset/img/login-bg.png" alt="login image" class="login__img">
+
+        <form asp-action="SignIn" asp-controller="Account" method="post" class="login__form">
+            <h1 class="login__title">Giriş</h1>
+
+            <div class="login__content">
+                <div class="login__box">
+                    <i class="ri-user-3-line login__icon"></i>
+
+                    <div class="login__box-input">
+                        <input asp-for=@Model.Email type="email" required class="login__input" placeholder=" ">
+                        <label for="" class="login__label">Email</label>
+                    </div>
+                </div>
+
+                <div class="login__box">
+                    <i class="ri-lock-2-line login__icon"></i>
+
+                    <div class="login__box-input">
+                        <input asp-for=@Model.Password type="password" required class="login__input" id="login-pass" placeholder=" ">
+                        <label for="" class="login__label">Şifre</label>
+                        <i class="ri-eye-off-line login__eye" id="login-eye"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="login__check">
+                <div class="login__check-group">
+                    <input asp-for=@Model.RememberMe type="checkbox" class="login__check-input">
+                    <label for="" class="login__check-label">Beni Hatırla</label>
+                </div>
+
+                <a href="#" class="login__forgot">Şifreni mi Unuttun?</a>
+            </div>
+
+            <button type="submit" class="login__button">Giriş Yap</button>
+
+            @*<p class="login__register">
+            Don't have an account? <a href="#">Register</a>
+            </p>*@
+            <div class="text-danger mt-2" asp-validation-summary="ModelOnly">
+            </div>
+        </form>
+        </div>
+
+        <!--=============== MAIN JS ===============-->
+    <script src="~/asset/js/main.js"></script>
+    </body>
+    </html>

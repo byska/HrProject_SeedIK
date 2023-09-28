@@ -1,0 +1,74 @@
+﻿@model AdvancePaymentVM
+@{
+    ViewData["Title"] = "Avans Listesi";
+    Layout = "~/Areas/Employee/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Avans Listesi</h1>
+<form id="TypeList" asp-controller="AdvancePayment" asp-action="AdvancePaymentListByFilter" method="post">
+    <div class="form-group">
+        <label asp-for="advancePayment">İzin Tipi</label>
+        <select id="TypeSelect" name="type" asp-for="advancePayment" class="form-control">
+            @foreach (var item in Model.advancePaymentType)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
+        <button type="submit" asp-route-status=null class="btn btn-primary">Tümü</button>
+        @{
+
+            string[] status = Enum.GetNames(typeof(Status));
+        }
+        @foreach (var item in status)
+        {
+            <button type="submit" asp-route-status=@item class="btn btn-primary">@item</button>
+        }
+    </div>
+</form>
+@*<script>
+    $(function () {
+        $("#TypeSelect").change(function () {
+            $('#TypeList').submit();
+        });
+    });
+</script>*@
+
+
+
+<div class="grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Avans Talepleri</h4>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Avans Türü</th>
+                            <th>Başvuru Tarihi</th>
+                            <th>Miktar</th>
+                            <th>Para Birimi</th>
+                            <th>Açıklama</th>
+                            <th>Durum</th>
+                            <th>Cevap Tarihi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         @foreach (var item in Model.advancePayments)
+                        {
+                        <tr>
+                        <td>@item.Type</td>
+                        <td>@item.RequestDate</td>
+                        <td>@item.Amount</td>
+                        <td>@item.Currency</td>
+                        <td>@item.Description</td>
+                        <td>@item.Status</td>
+                        <td>@item.ReplyDate</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

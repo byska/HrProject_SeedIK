@@ -1,0 +1,69 @@
+﻿@model IPagedList<ManagerPermissionModel>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using X.PagedList.Web.Common;
+@{
+    ViewData["Title"] = "PermissionCheckList";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+@{
+    var statusTypes = TempData["statusTypes"] as IEnumerable<Status>;
+}
+
+<div class="grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">İzin Talepleri</h4>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Talep Eden Kişi</th>
+                            <th>Talep Tarihi</th>
+                            <th>İzin Tarihleri</th>
+                            <th>Toplam İzin Günü</th>
+                            <th>Cevaplanma Tarihi</th>
+                            <th>İzin Türü</th>
+                            <th>Talep Durumu</th>
+                            <th>İzin Belgesi</th>
+                            <th>Onay Türü</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.EmployeeName</td>
+                                <td>@item.RequestDate</td>
+                                <td>@item.StartDate - @item.EndDate</td>
+                                <td>@item.NumberOfDays</td>
+                                <td>@item.ReplyDate</td>
+                                <td>@item.Type</td>
+                                <td>@item.Status</td>
+                                <td>@item.File @item.SelectFile</td>
+                                <td><a data-id="statusButtonConfirm" asp-route-Id="@item.ID">Confirm</a> <a data-id="statusButtonDenied" asp-route-Id="@item.ID">Denied</a></td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("PermissionCheckList",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions()
+            {
+            ContainerDivClasses = new List<string> {"d-flex justify-content-start mb-4"},
+            UlElementClasses = new List<string> {"pagination"},
+            LiElementClasses = new List<string> {"btn btn-primary mx-1 text-uppercase"},
+            ActiveLiElementClass =  "active",
+            })
+<script>
+    $(document).ready(function () {
+        $('ul.pagination > li.disabled > a').addClass('page-link');
+    });
+
+</script>

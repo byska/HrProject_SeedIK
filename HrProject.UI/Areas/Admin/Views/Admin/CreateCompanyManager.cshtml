@@ -1,0 +1,71 @@
+﻿@model CompanyManagerModel
+@{
+    ViewData["Title"] = "Şirket Yöneticisi Oluştur";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{
+    var genderTypes = TempData["genderEnumTypes"] as IList<Gender>;
+}
+@{
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Şirket Yöneticisi Oluştur</h4>
+                <p class="card-description">
+                </p>
+                <form class="forms-sample" enctype="multipart/form-data" asp-controller="Admin" asp-action="CreateCompanyManager" asp-area="Admin" method="post">
+                    <div class="form-group">
+                        <label asp-for="Username" for="exampleInputCity1">Kullanıcı Adı</label>
+                        <input asp-for="Username" type="text" class="form-control" id="exampleInputCity1">
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Password" type="hidden" value="1234567" class="form-control" id="exampleInputCity1">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" for="exampleInputCity1">Email</label>
+                        <input asp-for="Email" type="text" class="form-control" id="exampleInputCity1">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TC" for="exampleInputCity1">TC No</label>
+                        <input asp-for="TC" type="text" class="form-control" maxlength="11" id="exampleInputCity1">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FirstName">Ad</label>
+                        <input asp-for="FirstName" type="text" class="form-control" id="exampleInputCity1">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" >Soyad</label>
+                        <input asp-for="LastName" type="text" class="form-control" id="exampleInputCity1">
+                    </div>
+                    <label asp-for="Gender">Cinsiyet</label>
+                    <select asp-for="Gender" class="form-control">
+                        @foreach (var genderEnumValue in genderTypes)
+                        {
+                            <option value="@genderEnumValue">@genderEnumValue</option>
+                        }
+                    </select>
+                    <div class="form-group">
+                        <label asp-for="BirthDate" for="exampleInputCity1">Doğum Tarihi</label>
+                        <input asp-for="BirthDate" type="date" class="form-control" id="exampleInputCity1">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BirthPlace" for="exampleInputCity1">Doğum Yeri</label>
+                        <input asp-for="BirthPlace" type="text" class="form-control" id="exampleInputCity1">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Salary" for="exampleInputCity1">Maaş</label>
+                        <input asp-for="Salary" type="number" class="form-control" id="exampleInputCity1">
+                    </div>                    
+                    <div class="form-group">
+                        <br />
+                        <label asp-for="Address" for="exampleTextarea1">Adres</label>
+                        <textarea asp-for="Address" class="form-control" id="exampleTextarea1" rows="4" placeholder="Adres"></textarea>
+                    </div>
+                    <br />
+                    <button type="submit" value="Submit" class="btn btn-primary mr-2">Gönder</button>
+                    @*<button class="btn btn-light">Cancel</button>*@
+                </form>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,59 @@
+﻿@model AdvancePaymentModel
+@{
+    ViewData["Title"] = "Avans Oluştur";
+    Layout = "~/Areas/Employee/Views/Shared/_Layout.cshtml";
+}
+@{
+    var advancePaymentTypes = TempData["advacePaymentTypes"] as IEnumerable<AdvancePaymentType>;
+    var currencyTypes = TempData["currencyTypes"] as IEnumerable<Currency>;
+}
+
+@{
+    // Calculate yesterday's date
+    var yesterday = DateTime.Today.ToString("yyyy-MM-dd");
+}
+
+@{
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Avans Talebi Oluşturun</h4>
+                <p class="card-description">
+                </p>
+                <form class="forms-sample" enctype="multipart/form-data" asp-controller="AdvancePayment" asp-action="CreateAdvancePayment" method="post">
+                    <div class="form-group">
+                        <label asp-for="RequestDate" for="exampleInputCity1">Talep Edilen Tarih</label>
+                        <input asp-for="RequestDate" type="date" class="form-control" id="exampleInputCity1" min="@yesterday">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Amount" for="exampleInputCity1">Talep Edilen Avans</label>
+                        <input asp-for="Amount" type="number" class="form-control" id="exampleInputCity1">
+                    </div>
+                    <label asp-for="Currency" for="exampleInputCity1">Döviz Türü</label>
+                    <select asp-for="Currency" class="form-control">
+                        @foreach (var currencyEnumValue in currencyTypes)
+                        {
+                            <option value="@currencyEnumValue">@currencyEnumValue</option>
+                        }
+                    </select>
+                    <br/>
+                    <label asp-for="Type" for="exampleInputCity1">Avans Türü</label>
+                    <select id="Type" name="Type" class="form-control">
+                        @foreach (var enumValue in advancePaymentTypes)
+                        {
+                            <option value="@enumValue">@enumValue</option>
+                        }
+                    </select>
+                    <div class="form-group">
+                    <br/>
+                        <label asp-for="Description" for="exampleTextarea1">Açıklama</label>
+                        <textarea asp-for="Description" class="form-control" id="exampleTextarea1" rows="4" placeholder="Açıklama"></textarea>
+                    </div>
+                    <button type="submit" value="Submit" class="btn btn-primary mr-2">Gönder</button>
+                    @*<button class="btn btn-light">Cancel</button>*@
+                </form>
+            </div>
+        </div>
+    </div>
+}
+

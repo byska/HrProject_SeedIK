@@ -1,0 +1,65 @@
+﻿@model IPagedList<ManagerAdvancePaymentModel>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using X.PagedList.Web.Common;
+@{
+    ViewData["Title"] = "AdvancePaymentCheckList";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+@{
+    var statusTypes = TempData["statusTypes"] as IEnumerable<Status>;
+}
+
+<div class="grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Avans Talepleri</h4>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Talep Eden Kişi</th>
+                            <th>Talep Tarihi</th>
+                            <th>Cevaplanma Tarihi</th>
+                            <th>Avans Miktarı</th>
+                            <th>Avans Türü</th>
+                            <th>Talep Durumu</th>
+                            <th>Onay Türü</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.EmployeeName</td>
+                                <td>@item.RequestDate</td>
+                                <td>@item.ReplyDate</td>
+                                <td>@item.Amount</td>
+                                <td>@item.Type</td>
+                                <td>@item.Status</td>
+                                <td><a data-id="statusButtonConfirm" asp-route-Id="@item.Id">Confirm</a> <a data-id="statusButtonDenied" asp-route-Id="@item.Id">Denied</a></td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("AdvancePaymentCheckList",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions()
+            {
+            ContainerDivClasses = new List<string> {"d-flex justify-content-start mb-4"},
+            UlElementClasses = new List<string> {"pagination"},
+            LiElementClasses = new List<string> {"btn btn-primary mx-1 text-uppercase"},
+            ActiveLiElementClass =  "active",
+            })
+<script>
+    $(document).ready(function () {
+        $('ul.pagination > li.disabled > a').addClass('page-link');
+    });
+
+</script>
